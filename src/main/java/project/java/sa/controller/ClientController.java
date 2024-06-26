@@ -1,12 +1,18 @@
 package project.java.sa.controller;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import project.java.sa.dto.ErrorEntity;
 import project.java.sa.entites.Client;
 import project.java.sa.service.ClientService;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -28,12 +34,19 @@ public class ClientController {
         return this.clientService.search();
     }
     @GetMapping(path ="{id}", produces = APPLICATION_JSON_VALUE)
-    public Client lire(@PathVariable int id){
-        return  this.clientService.lire(id);
+    public ResponseEntity lire(@PathVariable int id) {
+        try {
+            Client client = this.clientService.lire(id);
+            return ResponseEntity.ok(client);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(BAD_REQUEST).body(new ErrorEntity(null, e.getMessage()));
+        }
+
     }
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     @PutMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
     public void update(@PathVariable int id, @RequestBody Client client){
         this.clientService.update(id, client);
     }
+
 }
