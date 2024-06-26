@@ -2,6 +2,8 @@ package project.java.sa.entites;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "CLIENT")
 public class Client {
@@ -10,16 +12,10 @@ public class Client {
     private int id;
     @Column(unique = true, nullable = false)
     private String email;
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
     private String telephone;
+    private Date creation;
+    @Column(name = "mis_a_jour")
+    private Date MisAJour ;
 
     public Client(String telephone) {
         this.telephone = telephone;
@@ -29,9 +25,13 @@ public class Client {
     public Client() {
 
     }
-    public Client(int id, String email) {
+
+    public Client(int id, String email, String telephone, Date creation, Date misAJour) {
         this.id = id;
         this.email = email;
+        this.telephone = telephone;
+        this.creation = creation;
+        MisAJour = misAJour;
     }
 
     public int getId() {
@@ -48,5 +48,29 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
+
+    public Date getMisAJour() {
+        return MisAJour;
+    }
+
+    public void setMisAJour(Date misAJour) {
+        MisAJour = misAJour;
     }
 }
