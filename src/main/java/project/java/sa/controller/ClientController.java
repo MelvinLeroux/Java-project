@@ -30,6 +30,10 @@ public class ClientController {
     @GetMapping(path ="{id}", produces = APPLICATION_JSON_VALUE)
     public Client lire(@PathVariable int id){
         return  this.clientService.lire(id);
-
+    }
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @PutMapping(path = "{id}", consumes = APPLICATION_JSON_VALUE)
+    public void update(@PathVariable int id, @RequestBody Client client){
+        this.clientService.update(id, client);
     }
 }

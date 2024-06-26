@@ -38,4 +38,13 @@ public class ClientService {
         }
         return clientInsideBDD;
     }
+
+    public void update(int id, Client client) {
+        Client clientInsideBDD = this.lire(id);
+        if (clientInsideBDD.getId()== client.getId()) {
+            clientInsideBDD.setEmail(client.getEmail());
+            clientInsideBDD.setTelephone(client.getTelephone());
+            this.clientRepository.save(clientInsideBDD);
+        }
+    }
 }

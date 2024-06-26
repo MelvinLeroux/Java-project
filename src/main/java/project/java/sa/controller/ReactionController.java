@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import project.java.sa.entites.Reaction;
+import project.java.sa.enums.Type;
 import project.java.sa.service.ReactionService;
 
 import java.util.List;
@@ -33,9 +34,10 @@ public class ReactionController {
         // Call the service to create the reaction
         this.reactionService.create(reaction);
     }
+
     @GetMapping(produces = APPLICATION_JSON_VALUE)
-    public @ResponseBody List<Reaction> search() {
-        return this.reactionService.search();
+    public @ResponseBody List<Reaction> search(@RequestParam(required = false) Type type) {
+        return this.reactionService.search(type);
     }
     @ResponseStatus(NO_CONTENT)
     @DeleteMapping(path = "{id}")

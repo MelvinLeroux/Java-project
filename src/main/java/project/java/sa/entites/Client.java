@@ -11,6 +11,21 @@ public class Client {
     @Column(unique = true, nullable = false)
     private String email;
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    private String telephone;
+
+    public Client(String telephone) {
+        this.telephone = telephone;
+    }
+
+
     public Client() {
 
     }
